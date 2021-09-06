@@ -2,12 +2,16 @@ package com.cm.controller;
 
 import com.cm.domain.SysUser;
 import com.cm.service.SysUserLoginService;
+import com.cm.utils.RedisService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class SysUserLoginController {
@@ -15,18 +19,22 @@ public class SysUserLoginController {
     @Autowired
     private SysUserLoginService sysUserLoginService;
 
+    @Autowired
+    private RedisService redisService;
+
     @PostMapping("/login")
-    public String login(@RequestBody SysUser sysUser){
-        String token = sysUserLoginService.login(sysUser.getUserAccount(),sysUser.getUserPassword());
+    public String login(@RequestBody SysUser sysUser) {
+        String token = sysUserLoginService.login(sysUser.getUserAccount(), sysUser.getUserPassword());
         return token;
     }
 
     @GetMapping("/getpassword")
-    public void getPassword(@RequestBody SysUser sysUser){
+    public void getPassword(@RequestBody SysUser sysUser) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
         String encodePassword = encoder.encode(sysUser.getUserPassword());
         System.out.println(encodePassword);
         System.out.println(sysUser.getUserPassword());
+        redisService.setCacheObject("test", sysUser.getUserPassword());
     }
 
     @GetMapping("/encode")

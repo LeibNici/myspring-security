@@ -1,10 +1,9 @@
-package com.cm.service.impl;
+package com.cm.service.impl.SecurityImpl;
 
 import com.cm.domain.VO.LoginSysUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import jdk.nashorn.internal.objects.NativeUint8Array;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;

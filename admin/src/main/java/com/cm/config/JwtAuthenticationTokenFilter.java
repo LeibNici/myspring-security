@@ -1,7 +1,7 @@
 package com.cm.config;
 
 import com.cm.domain.VO.LoginSysUser;
-import com.cm.service.impl.TokenServiceImpl;
+import com.cm.service.impl.SecurityImpl.TokenServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
